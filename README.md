@@ -1,1 +1,21 @@
-RidesApp-Web
+# RidesApp-Web
+_Welcome to the Tap App! The purpose of this application is to help people arrange rides easier to any event. This code base consists of the REST API which will be used by the mobile application and the ui of the web application. For more information, please visit our [Notion Page](https://dylanwong.notion.site/TapRide-0f8f6dca71ac447fa6b77a3388544f0a)!_
+
+* [Required Dependencies](#required-dependencies)
+* [Getting Started](#getting-started)
+
+---
+## Required Dependencies
+* [Docker](https://docs.docker.com/get-docker/)
+* An Integrated Development Environment (IDE) such as [Visual Studio Code](https://code.visualstudio.com/download) or [Sublime](https://www.sublimetext.com/3)
+---
+## Getting Started
+_Steps to get the local development environment running on your machine:_
+1. Create a `.env.dev` file in `api/env/`, copy the contents of `.env.example` into it. Ask any member of the team for the values of the secrets.
+2. Start the docker containers in dev mode by running the following command in the root directory:
+
+    ```bash
+    docker-compose --env-file ./api/env/.env.dev up
+    ```
+    * If this is the first time spinning up the containers, it may take a few minutes to download all the requirements.
+3. Access the frontend by going to localhost:3000.
