@@ -1,0 +1,4 @@
+/api/env/.env*
+
+# The database will be created automatically
+/db-data
