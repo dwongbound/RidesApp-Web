@@ -18,4 +18,13 @@ _Steps to get the local development environment running on your machine:_
     docker-compose --env-file ./api/env/.env.dev up
     ```
     * If this is the first time spinning up the containers, it may take a few minutes to download all the requirements.
+    * Sometimes, docker-compose won't build something because it thinks an image is up to date. To force a build, either delete the images or add `--build api` after the command.
 3. Access the frontend by going to localhost:3000.
+4. To run a psql shell instance, get into the api shell:
+    ```bash
+    docker exec -it ridesapp-web_db_1 bash
+    ```
+    Connect to the database we defined in the `docker-compose.yml` on the "host" named `db`:
+    ```bash
+    psql -h db -d postgres -U servant
+    ```
