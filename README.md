@@ -3,12 +3,16 @@ _Welcome to the Tap App! The purpose of this application is to help people arran
 
 * [Required Dependencies](#required-dependencies)
 * [Getting Started](#getting-started)
+* [UI](#ui)
 
 ---
+
 ## Required Dependencies
 * [Docker](https://docs.docker.com/get-docker/)
 * An Integrated Development Environment (IDE) such as [Visual Studio Code](https://code.visualstudio.com/download) or [Sublime](https://www.sublimetext.com/3)
+
 ---
+
 ## Getting Started
 _Steps to get the local development environment running on your machine:_
 1. Create a `.env.dev` file in `api/env/`, copy the contents of `.env.example` into it. Ask any member of the team for the values of the secrets.
@@ -28,3 +32,13 @@ _Steps to get the local development environment running on your machine:_
     ```bash
     psql -h db -d postgres -U servant
     ```
+
+---
+
+## UI
+_Everything related to the front end of the web application, from file structure to testing._
+### File Architecture
+The `front` folder holds everything front end related. Inside the `src` directory, components are layed out in a tree structure— with each folder holding components for that page. The exception to this is the `common` folder, which holds components that show on all / more than one page. Examples of this include the header, user tag, etc. Within these folders components may be grouped more depending on a nested components relation to the folder its in. If a component is exclusively used by another, it should be grouped with that other component.
+
+### Testing
+Jest is used to test this application and as always all new code should strive for 100% code coverage. Every component should have a testing file associated, ending with `.test.js`.

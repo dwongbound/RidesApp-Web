@@ -4,6 +4,20 @@ from django.db import models
 
 
 class User(models.Model):
+
+    FRESHMAN = 'FR'
+    SOPHOMORE = 'SO'
+    JUNIOR = 'JR'
+    SENIOR = 'SR'
+    GRADUATE = 'GR'
+    YEAR_IN_SCHOOL_CHOICES = [
+        (FRESHMAN, 'Freshman'),
+        (SOPHOMORE, 'Sophomore'),
+        (JUNIOR, 'Junior'),
+        (SENIOR, 'Senior'),
+        (GRADUATE, 'Graduate'),
+    ]
+
     # id field added for to be verbose, otherwise auto generates
     id = models.BigAutoField(primary_key=True, editable=False)
     first_name = models.CharField(max_length=40)
@@ -12,12 +26,25 @@ class User(models.Model):
     is_driver = models.BooleanField(default=False)
     profile_picture = models.ImageField(blank=True)
     email = models.EmailField(blank=True)
+    year_in_school = models.CharField(
+        max_length=2,
+        choices=YEAR_IN_SCHOOL_CHOICES,
+        default=JUNIOR,
+    )
     # TODO: Add history model and connect to user
 
     @property
     def display_name(self):
-        "Returns the person's full name."
+        # Returns the person's full name.
         return f"{self.first_name} {self.middle_initial}. {self.last_name}"
+    
+    def is_upperclass(self):
+        return self.year_in_school in {self.JUNIOR, self.SENIOR}
+
+    def __str__(self):
+        # What would print if this class was called
+        return f"{self.display_name} - {self.YEAR_IN_SCHOOL_CHOICES[self.year_in_school]} {'Driver' if self.is_driver else 'Rider'}"
+
 
 class Event(models.Model):
     # id field added automatically. UUID field generated for REST purpopses
@@ -39,3 +66,10 @@ class Event(models.Model):
     city = models.CharField(default="Los Angeles", max_length=30)
     state = models.CharField(default="CA", max_length=2)
     zip_code = models.IntegerField(default=90015)
+
+class EventUser(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    is_driver = models.BooleanField(default=False)
+    accomodations = models.CharField(max_length=100, blank=True)
